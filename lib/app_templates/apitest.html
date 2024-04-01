@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+<h1>
+<script>
+	fetch('https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=plant1')
+	.then(response => {
+		return response.json();})
+	.then(data => {console.log(data);})
+</script>
+</h1>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Viper Config</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <script>
+            const x = document.getElementById("lat");
+            const y = document.getElementById("long");
+
+            function getLocation() {
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+              } else { 
+                x.value = "Geolocation is not supported by this browser.";
+              }
+            }
+
+            function showPosition(position) {
+              x.value = position.coords.latitude; 
+              y.value = position.coords.longitude;
+            }
+        </script>
+
+
+        <h1>Set up your new Viper:</h1>
+        <form action="/config", method="POST">
+        <label for="unitname">Name your Viper:</label><br>
+        <input type="text" id="unitname" name="unitname"><br>
+        <p>
+        <br>
+        <label for="user">Enter your ESC username (email address):</label><br>
+        <input type="email" id="user" name="user"><br>
+        <p>
+        <br>
+        <label for="lat">Latitude:</label><br>
+        <input type="text" id="lat" name="lat"><br>
+        <br>
+        <label for="long">Longitude:</label><br>
+        <input type="text" id="long" name="long"><br>
+        <br>
+        <button onclick="getLocation()">Click Here to fill location with GPS</button>
+        <p>
+        <br>
+        <input type="radio" id="indoor" name="inout" value="indoor">
+        <label for="indoor">Indoor</label><br>
+        <input type="radio" id="outdoor" name="inout" value="outdoor">
+        <label for="outdoor">Outdoor</label><br>
+        <p>
+        <br>
+        <label for="plantprefix">Prefix name for your plants:</label><br>
+        <input type="text" id="plantprefix" name="plantprefix"><br>
+        <label for="plantnum">Number of plants:</label><br>
+        <select id="plantnum" name="plantnum">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>    
+        <br>            
+        <p>
+        <br>
+        <input type="submit" value="Submit">
+        </form>
+
+    </body>
+    </html>
