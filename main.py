@@ -154,6 +154,7 @@ def application_mode():
             #machine.reset()
             #import setupHelper
             #setupHelper.updater()
+            
             import ugit
             ugit.pull_all(isconnected=True)
         except Exception as error:
