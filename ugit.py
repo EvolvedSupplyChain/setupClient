@@ -25,13 +25,17 @@ with open("config.json",'r') as f:
 ssid = config["SSID"]
 password = config["WIPASS"]
 
+with open("updatePaths.json",'r') as f:
+    updatePaths = json.load(f)
 # CHANGE TO YOUR REPOSITORY INFO
 # Repository must be public if no personal access token is supplied
-user = config["GITUSER"]
-repository = config["GITREPO"]
+user = updatePaths["GITUSER"]
+repository = updatePaths["GITREPO"]
 token = ''
 # Change this variable to 'master' or any other name matching your default branch
+
 default_branch = 'main'
+#default_branch = updatePaths["GITBRANCH"]
 
 # Don't remove ugit.py from the ignore_files unless you know what you are doing :D
 # Put the files you don't want deleted or updated here use '/filename.ext'
@@ -43,6 +47,7 @@ ignore = ignore_files
 # GitHub uses 'main' instead of master for python repository trees
 giturl = 'https://github.com/{user}/{repository}'
 call_trees_url = f'https://api.github.com/repos/{user}/{repository}/git/trees/{default_branch}?recursive=1'
+#call_trees_url = f'https://api.github.com/repos/{user}/{repository}/git/trees/release?recursive=1'
 raw = f'https://raw.githubusercontent.com/{user}/{repository}/master/'
 
 def pull(f_path,raw_url):
@@ -103,6 +108,9 @@ def pull_all(tree=call_trees_url,raw = raw,ignore = ignore,isconnected=False):
   logfile = open('ugit_log.py','w')
   logfile.write(str(log))
   logfile.close()
+  updatePaths["VERSION"] = updatePaths["VERSION"] + 0.1
+  with open("updatePaths.json", 'w') as f:
+      json.dump(updatePaths,f)
   time.sleep(10)
   print('resetting machine in 10: machine.reset()')
   machine.reset()
